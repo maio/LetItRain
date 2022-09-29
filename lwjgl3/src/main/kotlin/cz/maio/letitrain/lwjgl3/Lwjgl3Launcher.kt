@@ -10,7 +10,7 @@ import cz.maio.letitrain.LetItRain
 fun main() {
     Lwjgl3Application(LetItRain(), Lwjgl3ApplicationConfiguration().apply {
         setTitle("letitrain")
-        setWindowedMode(640, 480)
+        setWindowedMode(1600, 900)
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
     })
 }
