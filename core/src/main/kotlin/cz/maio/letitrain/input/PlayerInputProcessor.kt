@@ -1,20 +1,66 @@
 package cz.maio.letitrain.input
 
 import com.badlogic.gdx.InputProcessor
+import com.github.quillraven.fleks.ComponentMapper
+import com.github.quillraven.fleks.World
+import cz.maio.letitrain.component.ImageComponent
+import cz.maio.letitrain.component.MoveComponent
 
-class PlayerInputProcessor : InputProcessor {
+class PlayerInputProcessor(
+    world: World,
+    private val moveCmps: ComponentMapper<MoveComponent> = world.mapper()
+) : InputProcessor {
+    private val playerEntities = world.family(allOf = arrayOf(ImageComponent::class))
+
     override fun keyDown(keycode: Int): Boolean {
+        val delta = 5f
+
         when (keycode) {
-            21 -> println("sipka leva")
-            22 -> println("sipka prava")
-            19 -> println("sipka nahoru")
-            20 -> println("sipka dolu")
+            21 -> {
+                moveCmps[playerEntities.first()].dx = -delta
+                println("sipka leva")
+            }
+
+            22 -> {
+                moveCmps[playerEntities.first()].dx = delta
+                println("sipka prava")
+            }
+
+            19 -> {
+                moveCmps[playerEntities.first()].dy = delta
+                println("sipka nahoru")
+            }
+
+            20 -> {
+                moveCmps[playerEntities.first()].dy = -delta
+                println("sipka dolu")
+            }
         }
         return true
     }
 
     override fun keyUp(keycode: Int): Boolean {
-        println(keycode)
+        when (keycode) {
+            21 -> {
+                moveCmps[playerEntities.first()].dx = 0f
+                println("sipka leva")
+            }
+
+            22 -> {
+                moveCmps[playerEntities.first()].dx = 0f
+                println("sipka prava")
+            }
+
+            19 -> {
+                moveCmps[playerEntities.first()].dy = 0f
+                println("sipka nahoru")
+            }
+
+            20 -> {
+                moveCmps[playerEntities.first()].dy = 0f
+                println("sipka dolu")
+            }
+        }
         return true
     }
 

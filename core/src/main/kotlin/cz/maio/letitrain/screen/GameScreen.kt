@@ -10,7 +10,9 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.github.quillraven.fleks.world
 import cz.maio.letitrain.component.ImageComponent
 import cz.maio.letitrain.component.ImageComponent.Companion.ImageComponentListener
+import cz.maio.letitrain.component.MoveComponent
 import cz.maio.letitrain.input.PlayerInputProcessor
+import cz.maio.letitrain.system.MoveSystem
 import cz.maio.letitrain.system.RenderSystem
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
@@ -37,6 +39,7 @@ class GameScreen : KtxScreen {
         }
 
         systems {
+            add<MoveSystem>()
             add<RenderSystem>()
         }
     }
@@ -48,12 +51,13 @@ class GameScreen : KtxScreen {
             setPosition(0.1f, 0.1f)
         }
 
-        Gdx.input.inputProcessor = PlayerInputProcessor()
+        Gdx.input.inputProcessor = PlayerInputProcessor(eWorld)
 
         eWorld.entity {
             add<ImageComponent> {
                 image = logoActor
             }
+            add<MoveComponent>()
         }
     }
 
