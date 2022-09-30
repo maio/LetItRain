@@ -6,6 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.ExtendViewport
+import com.github.quillraven.fleks.world
+import cz.maio.letitrain.component.ImageComponent
+import cz.maio.letitrain.component.ImageComponent.Companion.ImageComponentListener
+import cz.maio.letitrain.system.RenderSystem
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.disposeSafely
@@ -21,19 +25,37 @@ class FirstScreen : KtxScreen {
         )
     }
 
+    private val eWorld = world {
+        injectables {
+            add("GameStage", gameStage)
+        }
+        
+        components {
+            add<ImageComponentListener>()
+        }
+
+        systems {
+            add<RenderSystem>()
+        }
+    }
+
     init {
-        gameStage.addActor(Image(logo).apply {
+        val logoActor = Image(logo).apply {
             setScaling(Scaling.fit)
             setSize(1f, 1f)
             setPosition(0.1f, 0.1f)
-        })
+        }
+
+        eWorld.entity {
+            add<ImageComponent> {
+                image = logoActor
+            }
+        }
     }
 
     override fun render(delta: Float) {
         clearScreen(red = 0.7f, green = 0.7f, blue = 0.7f)
-        gameStage.viewport.apply()
-        gameStage.act()
-        gameStage.draw()
+        eWorld.update(delta)
     }
 
     override fun dispose() {
