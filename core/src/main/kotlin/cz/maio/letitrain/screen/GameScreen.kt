@@ -17,7 +17,7 @@ import ktx.app.clearScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 
-class FirstScreen : KtxScreen {
+class GameScreen : KtxScreen {
     private val batch = SpriteBatch()
     private val gameStage = Stage(ExtendViewport(16f, 9f), batch)
     private val logo = Texture("logo.png".toInternalFile(), true).apply {
