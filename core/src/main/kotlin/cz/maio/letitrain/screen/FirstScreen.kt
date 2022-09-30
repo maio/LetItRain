@@ -1,5 +1,6 @@
 package cz.maio.letitrain.screen
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -9,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.github.quillraven.fleks.world
 import cz.maio.letitrain.component.ImageComponent
 import cz.maio.letitrain.component.ImageComponent.Companion.ImageComponentListener
+import cz.maio.letitrain.input.PlayerInputProcessor
 import cz.maio.letitrain.system.RenderSystem
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
@@ -29,7 +31,7 @@ class FirstScreen : KtxScreen {
         injectables {
             add("GameStage", gameStage)
         }
-        
+
         components {
             add<ImageComponentListener>()
         }
@@ -45,6 +47,8 @@ class FirstScreen : KtxScreen {
             setSize(1f, 1f)
             setPosition(0.1f, 0.1f)
         }
+
+        Gdx.input.inputProcessor = PlayerInputProcessor()
 
         eWorld.entity {
             add<ImageComponent> {
