@@ -58,7 +58,7 @@ class GameScreen : KtxScreen {
     }
 
     override fun render(delta: Float) {
-        clearScreen(red = 0.7f, green = 0.7f, blue = 0.7f)
+        clearScreen(red = 75 / 255f, green = 139 / 255f, blue = 171 / 255f)
         eWorld.update(delta)
     }
 
