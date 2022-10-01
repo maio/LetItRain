@@ -48,7 +48,7 @@ class GameScreen : KtxScreen {
         val playerImageActor = Image(playerTexture).apply {
             setScaling(Scaling.fit)
             setSize(1f, 1f)
-            setPosition(0.1f, 0.1f)
+            setPosition((gameStage.viewport.worldWidth / 2) - 0.5f, 0.1f)
         }
 
         Gdx.input.inputProcessor = PlayerInputProcessor(eWorld)
