@@ -1,5 +1,6 @@
 package cz.maio.letitrain.input
 
+import com.badlogic.gdx.Input.Keys.*
 import com.badlogic.gdx.InputProcessor
 import com.github.quillraven.fleks.ComponentMapper
 import com.github.quillraven.fleks.World
@@ -16,50 +17,20 @@ class PlayerInputProcessor(
         val delta = 5f
 
         when (keycode) {
-            21 -> {
-                moveCmps[playerEntities.first()].dx = -delta
-                println("sipka leva")
-            }
-
-            22 -> {
-                moveCmps[playerEntities.first()].dx = delta
-                println("sipka prava")
-            }
-
-            19 -> {
-                moveCmps[playerEntities.first()].dy = delta
-                println("sipka nahoru")
-            }
-
-            20 -> {
-                moveCmps[playerEntities.first()].dy = -delta
-                println("sipka dolu")
-            }
+            LEFT -> moveCmps[playerEntities.first()].dx = -delta
+            RIGHT -> moveCmps[playerEntities.first()].dx = delta
+            UP -> moveCmps[playerEntities.first()].dy = delta
+            DOWN -> moveCmps[playerEntities.first()].dy = -delta
         }
         return true
     }
 
     override fun keyUp(keycode: Int): Boolean {
         when (keycode) {
-            21 -> {
-                moveCmps[playerEntities.first()].dx = 0f
-                println("sipka leva")
-            }
-
-            22 -> {
-                moveCmps[playerEntities.first()].dx = 0f
-                println("sipka prava")
-            }
-
-            19 -> {
-                moveCmps[playerEntities.first()].dy = 0f
-                println("sipka nahoru")
-            }
-
-            20 -> {
-                moveCmps[playerEntities.first()].dy = 0f
-                println("sipka dolu")
-            }
+            LEFT -> moveCmps[playerEntities.first()].dx = 0f
+            RIGHT -> moveCmps[playerEntities.first()].dx = 0f
+            UP -> moveCmps[playerEntities.first()].dy = 0f
+            DOWN -> moveCmps[playerEntities.first()].dy = 0f
         }
         return true
     }
