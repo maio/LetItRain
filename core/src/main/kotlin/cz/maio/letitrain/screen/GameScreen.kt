@@ -22,7 +22,7 @@ import ktx.assets.toInternalFile
 class GameScreen : KtxScreen {
     private val batch = SpriteBatch()
     private val gameStage = Stage(ExtendViewport(16f, 9f), batch)
-    private val logo = Texture("logo.png".toInternalFile(), true).apply {
+    private val playerTexture = Texture("panda.png".toInternalFile(), true).apply {
         setFilter(
             Texture.TextureFilter.Linear,
             Texture.TextureFilter.Linear
@@ -45,7 +45,7 @@ class GameScreen : KtxScreen {
     }
 
     init {
-        val logoActor = Image(logo).apply {
+        val playerImageActor = Image(playerTexture).apply {
             setScaling(Scaling.fit)
             setSize(1f, 1f)
             setPosition(0.1f, 0.1f)
@@ -55,7 +55,7 @@ class GameScreen : KtxScreen {
 
         eWorld.entity {
             add<ImageComponent> {
-                image = logoActor
+                image = playerImageActor
             }
             add<MoveComponent>()
         }
@@ -68,7 +68,7 @@ class GameScreen : KtxScreen {
 
     override fun dispose() {
         gameStage.disposeSafely()
-        logo.disposeSafely()
+        playerTexture.disposeSafely()
         batch.disposeSafely()
     }
 }
