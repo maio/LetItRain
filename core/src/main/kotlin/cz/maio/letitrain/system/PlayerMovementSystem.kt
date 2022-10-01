@@ -9,7 +9,7 @@ import cz.maio.letitrain.component.PlayerComponent
 import cz.maio.letitrain.component.PlayerInput
 
 @AllOf([PlayerComponent::class, MoveComponent::class])
-class PlayerMoveSystem(
+class PlayerMovementSystem(
     private val moveCmps: ComponentMapper<MoveComponent>,
     private val playerCmps: ComponentMapper<PlayerComponent>,
 ) : IteratingSystem() {

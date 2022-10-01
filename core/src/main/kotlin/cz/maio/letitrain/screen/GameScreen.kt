@@ -13,10 +13,10 @@ import cz.maio.letitrain.component.ImageComponent.Companion.ImageComponentListen
 import cz.maio.letitrain.component.MoveComponent
 import cz.maio.letitrain.component.PlayerComponent
 import cz.maio.letitrain.input.PlayerInputProcessor
-import cz.maio.letitrain.system.DropletSpawnSystem
-import cz.maio.letitrain.system.MoveSystem
-import cz.maio.letitrain.system.PlayerMoveSystem
-import cz.maio.letitrain.system.RenderSystem
+import cz.maio.letitrain.system.DropletSpawningSystem
+import cz.maio.letitrain.system.MovementSystem
+import cz.maio.letitrain.system.PlayerMovementSystem
+import cz.maio.letitrain.system.RenderingSystem
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.disposeSafely
@@ -42,17 +42,20 @@ class GameScreen : KtxScreen {
         }
 
         systems {
-            add<PlayerMoveSystem>()
-            add<MoveSystem>()
-            add<DropletSpawnSystem>()
-            add<RenderSystem>()
+            add<PlayerMovementSystem>()
+            add<MovementSystem>()
+            add<DropletSpawningSystem>()
+            add<RenderingSystem>()
         }
     }
 
     init {
         Gdx.input.inputProcessor = PlayerInputProcessor(eWorld)
 
+        // Spawn player 1
         eWorld.entity {
+            add<PlayerComponent>()
+            add<MoveComponent>()
             add<ImageComponent> {
                 image = Image(playerTexture).apply {
                     setScaling(Scaling.fit)
@@ -60,8 +63,6 @@ class GameScreen : KtxScreen {
                     setPosition((gameStage.viewport.worldWidth / 2) - 0.5f, 0.1f)
                 }
             }
-            add<MoveComponent>()
-            add<PlayerComponent>()
         }
     }
 

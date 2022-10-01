@@ -1,18 +1,16 @@
 package cz.maio.letitrain.system
 
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
-import com.github.quillraven.fleks.*
+import com.github.quillraven.fleks.Fixed
+import com.github.quillraven.fleks.IntervalSystem
 import cz.maio.letitrain.component.ImageComponent
 import cz.maio.letitrain.component.MoveComponent
 import ktx.assets.toInternalFile
 import kotlin.random.Random
 
-class DropletSpawnSystem(
-    @Qualifier("GameStage") private val stage: Stage
-) : IntervalSystem(interval = Fixed(1f)) {
+class DropletSpawningSystem : IntervalSystem(interval = Fixed(1f)) {
     private val dropletTexture = Texture("droplet.png".toInternalFile(), true).apply {
         setFilter(
             Texture.TextureFilter.Linear,

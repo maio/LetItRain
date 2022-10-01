@@ -8,7 +8,7 @@ import com.github.quillraven.fleks.Qualifier
 import cz.maio.letitrain.component.ImageComponent
 
 @AllOf(components = [ImageComponent::class])
-class RenderSystem(
+class RenderingSystem(
     @Qualifier("GameStage") private val stage: Stage
 ) : IteratingSystem() {
     override fun onTick() {

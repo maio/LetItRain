@@ -8,7 +8,7 @@ import cz.maio.letitrain.component.ImageComponent
 import cz.maio.letitrain.component.MoveComponent
 
 @AllOf([ImageComponent::class, MoveComponent::class])
-class MoveSystem(
+class MovementSystem(
     private val moveCmps: ComponentMapper<MoveComponent>,
     private val imgCmps: ComponentMapper<ImageComponent>,
 ) : IteratingSystem() {
