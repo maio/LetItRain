@@ -11,6 +11,7 @@ and [KTX](https://libktx.github.io/) utilities.
 - [x] Padajici kapky
 - [ ] Podpora pro dva hrace
 - [ ] Omezit pohyb aby helikoptera nemohla mimo obrazovku
+- [ ] Otocit helikopteru ve smeru pohybu
 - [ ] Helikoptera chytne kapku
 - [ ] Helikoptere se plni nadrz vodou
 - [ ] Helikoptera muze vyprazdnit nadrz

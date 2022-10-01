@@ -5,35 +5,37 @@ import com.badlogic.gdx.InputProcessor
 import com.github.quillraven.fleks.ComponentMapper
 import com.github.quillraven.fleks.World
 import cz.maio.letitrain.component.ImageComponent
-import cz.maio.letitrain.component.MoveComponent
 import cz.maio.letitrain.component.PlayerComponent
+import cz.maio.letitrain.component.PlayerInput
 
 class PlayerInputProcessor(
     world: World,
-    private val moveCmps: ComponentMapper<MoveComponent> = world.mapper()
+    private val playerCmps: ComponentMapper<PlayerComponent> = world.mapper(),
 ) : InputProcessor {
     private val playerEntities = world.family(
         allOf = arrayOf(ImageComponent::class, PlayerComponent::class)
     )
 
     override fun keyDown(keycode: Int): Boolean {
-        val delta = 5f
+        val player1 = playerEntities.first()
 
         when (keycode) {
-            LEFT -> moveCmps[playerEntities.first()].dx = -delta
-            RIGHT -> moveCmps[playerEntities.first()].dx = delta
-            UP -> moveCmps[playerEntities.first()].dy = delta
-            DOWN -> moveCmps[playerEntities.first()].dy = -delta
+            LEFT -> playerCmps[player1].keysDown += PlayerInput.MoveLeft
+            RIGHT -> playerCmps[player1].keysDown += PlayerInput.MoveRight
+            UP -> playerCmps[player1].keysDown += PlayerInput.MoveUp
+            DOWN -> playerCmps[player1].keysDown += PlayerInput.MoveDown
         }
         return true
     }
 
     override fun keyUp(keycode: Int): Boolean {
+        val player1 = playerEntities.first()
+
         when (keycode) {
-            LEFT -> moveCmps[playerEntities.first()].dx = 0f
-            RIGHT -> moveCmps[playerEntities.first()].dx = 0f
-            UP -> moveCmps[playerEntities.first()].dy = 0f
-            DOWN -> moveCmps[playerEntities.first()].dy = 0f
+            LEFT -> playerCmps[player1].keysDown -= PlayerInput.MoveLeft
+            RIGHT -> playerCmps[player1].keysDown -= PlayerInput.MoveRight
+            UP -> playerCmps[player1].keysDown -= PlayerInput.MoveUp
+            DOWN -> playerCmps[player1].keysDown -= PlayerInput.MoveDown
         }
         return true
     }
