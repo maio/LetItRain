@@ -5,6 +5,17 @@ A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://git
 This project was generated with a Kotlin project template that includes Kotlin application launchers
 and [KTX](https://libktx.github.io/) utilities.
 
+## TODO List
+
+- [x] Obrazek pro hrace
+- [x] Padajici kapky
+- [ ] Podpora pro dva hrace
+- [ ] Omezit pohyb aby helikoptera nemohla mimo obrazovku
+- [ ] Helikoptera chytne kapku
+- [ ] Helikoptere se plni nadrz vodou
+- [ ] Helikoptera muze vyprazdnit nadrz
+- [ ] Fix TODOs in DropletSpawnSystem
+
 ## Gradle
 
 This project uses [Gradle](http://gradle.org/) to manage dependencies.
@@ -28,3 +39,4 @@ Useful Gradle tasks and flags:
 Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should
 be replaced with the ID of a specific project.
 For example, `core:clean` removes `build` folder only from the `core` project.
+

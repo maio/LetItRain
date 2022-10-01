@@ -6,12 +6,15 @@ import com.github.quillraven.fleks.ComponentMapper
 import com.github.quillraven.fleks.World
 import cz.maio.letitrain.component.ImageComponent
 import cz.maio.letitrain.component.MoveComponent
+import cz.maio.letitrain.component.PlayerComponent
 
 class PlayerInputProcessor(
     world: World,
     private val moveCmps: ComponentMapper<MoveComponent> = world.mapper()
 ) : InputProcessor {
-    private val playerEntities = world.family(allOf = arrayOf(ImageComponent::class))
+    private val playerEntities = world.family(
+        allOf = arrayOf(ImageComponent::class, PlayerComponent::class)
+    )
 
     override fun keyDown(keycode: Int): Boolean {
         val delta = 5f
