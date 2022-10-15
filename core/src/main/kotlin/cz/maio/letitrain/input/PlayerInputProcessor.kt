@@ -1,8 +1,9 @@
 package cz.maio.letitrain.input
 
-import com.badlogic.gdx.Input.Keys.*
+import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.InputProcessor
 import com.github.quillraven.fleks.ComponentMapper
+import com.github.quillraven.fleks.Entity
 import com.github.quillraven.fleks.World
 import cz.maio.letitrain.component.ImageComponent
 import cz.maio.letitrain.component.PlayerComponent
@@ -17,25 +18,41 @@ class PlayerInputProcessor(
     )
 
     override fun keyDown(keycode: Int): Boolean {
-        val player1 = playerEntities.first()
+        val (player1, player2) = getPlayerEntitiesAsList()
+
+        val player2Cmp = playerCmps[player2]
+        val player1Cmp = playerCmps[player1]
 
         when (keycode) {
-            LEFT -> playerCmps[player1].keysDown += PlayerInput.MoveLeft
-            RIGHT -> playerCmps[player1].keysDown += PlayerInput.MoveRight
-            UP -> playerCmps[player1].keysDown += PlayerInput.MoveUp
-            DOWN -> playerCmps[player1].keysDown += PlayerInput.MoveDown
+            Keys.LEFT -> player1Cmp.keysDown += PlayerInput.MoveLeft
+            Keys.RIGHT -> player1Cmp.keysDown += PlayerInput.MoveRight
+            Keys.UP -> player1Cmp.keysDown += PlayerInput.MoveUp
+            Keys.DOWN -> player1Cmp.keysDown += PlayerInput.MoveDown
+
+            Keys.A -> player2Cmp.keysDown += PlayerInput.MoveLeft
+            Keys.D -> player2Cmp.keysDown += PlayerInput.MoveRight
+            Keys.W -> player2Cmp.keysDown += PlayerInput.MoveUp
+            Keys.S -> player2Cmp.keysDown += PlayerInput.MoveDown
         }
         return true
     }
 
     override fun keyUp(keycode: Int): Boolean {
-        val player1 = playerEntities.first()
+        val (player1, player2) = getPlayerEntitiesAsList()
+
+        val player2Cmp = playerCmps[player2]
+        val player1Cmp = playerCmps[player1]
 
         when (keycode) {
-            LEFT -> playerCmps[player1].keysDown -= PlayerInput.MoveLeft
-            RIGHT -> playerCmps[player1].keysDown -= PlayerInput.MoveRight
-            UP -> playerCmps[player1].keysDown -= PlayerInput.MoveUp
-            DOWN -> playerCmps[player1].keysDown -= PlayerInput.MoveDown
+            Keys.LEFT -> player1Cmp.keysDown -= PlayerInput.MoveLeft
+            Keys.RIGHT -> player1Cmp.keysDown -= PlayerInput.MoveRight
+            Keys.UP -> player1Cmp.keysDown -= PlayerInput.MoveUp
+            Keys.DOWN -> player1Cmp.keysDown -= PlayerInput.MoveDown
+
+            Keys.A -> player2Cmp.keysDown -= PlayerInput.MoveLeft
+            Keys.D -> player2Cmp.keysDown -= PlayerInput.MoveRight
+            Keys.W -> player2Cmp.keysDown -= PlayerInput.MoveUp
+            Keys.S -> player2Cmp.keysDown -= PlayerInput.MoveDown
         }
         return true
     }
@@ -62,5 +79,11 @@ class PlayerInputProcessor(
 
     override fun scrolled(amountX: Float, amountY: Float): Boolean {
         return false
+    }
+
+    private fun getPlayerEntitiesAsList(): List<Entity> {
+        val players = mutableListOf<Entity>()
+        playerEntities.forEach { players.add(it) }
+        return players.reversed()
     }
 }

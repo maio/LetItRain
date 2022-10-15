@@ -31,6 +31,12 @@ class GameScreen : KtxScreen {
             Texture.TextureFilter.Linear
         )
     }
+    private val player2Texture = Texture("helicopter_2.png".toInternalFile(), true).apply {
+        setFilter(
+            Texture.TextureFilter.Linear,
+            Texture.TextureFilter.Linear
+        )
+    }
 
     private val eWorld = world {
         injectables {
@@ -58,6 +64,19 @@ class GameScreen : KtxScreen {
             add<MoveComponent>()
             add<ImageComponent> {
                 image = Image(player1Texture).apply {
+                    setScaling(Scaling.fit)
+                    setSize(1f, 1f)
+                    setPosition((gameStage.viewport.worldWidth / 2) - 0.5f, 0.1f)
+                }
+            }
+        }
+
+        // Spawn player 2
+        eWorld.entity {
+            add<PlayerComponent>()
+            add<MoveComponent>()
+            add<ImageComponent> {
+                image = Image(player2Texture).apply {
                     setScaling(Scaling.fit)
                     setSize(1f, 1f)
                     setPosition((gameStage.viewport.worldWidth / 2) - 0.5f, 0.1f)

@@ -9,10 +9,10 @@ and [KTX](https://libktx.github.io/) utilities.
 
 - [x] Obrazek pro hrace
 - [x] Padajici kapky
-- [ ] Podpora pro dva hrace
+- [x] Podpora pro dva hrace
+- [ ] Helikoptera chytne kapku
 - [ ] Omezit pohyb aby helikoptera nemohla mimo obrazovku
 - [ ] Otocit helikopteru ve smeru pohybu
-- [ ] Helikoptera chytne kapku
 - [ ] Helikoptere se plni nadrz vodou
 - [ ] Helikoptera muze vyprazdnit nadrz
 - [ ] Fix TODOs in DropletSpawnSystem
