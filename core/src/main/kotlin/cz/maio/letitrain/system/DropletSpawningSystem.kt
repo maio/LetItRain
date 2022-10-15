@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
 import com.github.quillraven.fleks.Fixed
 import com.github.quillraven.fleks.IntervalSystem
+import cz.maio.letitrain.component.DropletComponent
 import cz.maio.letitrain.component.ImageComponent
 import cz.maio.letitrain.component.MoveComponent
 import ktx.assets.toInternalFile
@@ -31,6 +32,7 @@ class DropletSpawningSystem : IntervalSystem(interval = Fixed(1f)) {
         val height = 9f // TODO: stage.height
 
         world.entity {
+            add<DropletComponent>()
             add<ImageComponent> {
                 image = Image(dropletTexture).apply {
                     setScaling(Scaling.fit)
