@@ -8,10 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.github.quillraven.fleks.world
-import cz.maio.letitrain.component.ImageComponent
+import cz.maio.letitrain.component.*
 import cz.maio.letitrain.component.ImageComponent.Companion.ImageComponentListener
-import cz.maio.letitrain.component.MoveComponent
-import cz.maio.letitrain.component.PlayerComponent
 import cz.maio.letitrain.input.PlayerInputProcessor
 import cz.maio.letitrain.system.DropletSpawningSystem
 import cz.maio.letitrain.system.MovementSystem
@@ -60,6 +58,7 @@ class GameScreen : KtxScreen {
 
         // Spawn player 1
         eWorld.entity {
+            add<Player1Component>()
             add<PlayerComponent>()
             add<MoveComponent>()
             add<ImageComponent> {
@@ -73,6 +72,7 @@ class GameScreen : KtxScreen {
 
         // Spawn player 2
         eWorld.entity {
+            add<Player2Component>()
             add<PlayerComponent>()
             add<MoveComponent>()
             add<ImageComponent> {

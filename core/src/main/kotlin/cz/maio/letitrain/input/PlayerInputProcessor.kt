@@ -3,25 +3,25 @@ package cz.maio.letitrain.input
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.InputProcessor
 import com.github.quillraven.fleks.ComponentMapper
-import com.github.quillraven.fleks.Entity
 import com.github.quillraven.fleks.World
-import cz.maio.letitrain.component.ImageComponent
-import cz.maio.letitrain.component.PlayerComponent
-import cz.maio.letitrain.component.PlayerInput
+import cz.maio.letitrain.component.*
 
 class PlayerInputProcessor(
     world: World,
     private val playerCmps: ComponentMapper<PlayerComponent> = world.mapper(),
 ) : InputProcessor {
-    private val playerEntities = world.family(
-        allOf = arrayOf(ImageComponent::class, PlayerComponent::class)
+    private val player1Entities = world.family(
+        allOf = arrayOf(ImageComponent::class, PlayerComponent::class, Player1Component::class)
     )
+    private val player2Entities = world.family(
+        allOf = arrayOf(ImageComponent::class, PlayerComponent::class, Player2Component::class)
+    )
+    private val player1Entity get() = player1Entities.first()
+    private val player2Entity get() = player2Entities.first()
 
     override fun keyDown(keycode: Int): Boolean {
-        val (player1, player2) = getPlayerEntitiesAsList()
-
-        val player2Cmp = playerCmps[player2]
-        val player1Cmp = playerCmps[player1]
+        val player1Cmp = playerCmps[player1Entity]
+        val player2Cmp = playerCmps[player2Entity]
 
         when (keycode) {
             Keys.LEFT -> player1Cmp.keysDown += PlayerInput.MoveLeft
@@ -38,10 +38,8 @@ class PlayerInputProcessor(
     }
 
     override fun keyUp(keycode: Int): Boolean {
-        val (player1, player2) = getPlayerEntitiesAsList()
-
-        val player2Cmp = playerCmps[player2]
-        val player1Cmp = playerCmps[player1]
+        val player1Cmp = playerCmps[player1Entity]
+        val player2Cmp = playerCmps[player2Entity]
 
         when (keycode) {
             Keys.LEFT -> player1Cmp.keysDown -= PlayerInput.MoveLeft
@@ -79,11 +77,5 @@ class PlayerInputProcessor(
 
     override fun scrolled(amountX: Float, amountY: Float): Boolean {
         return false
-    }
-
-    private fun getPlayerEntitiesAsList(): List<Entity> {
-        val players = mutableListOf<Entity>()
-        playerEntities.forEach { players.add(it) }
-        return players.reversed()
     }
 }
