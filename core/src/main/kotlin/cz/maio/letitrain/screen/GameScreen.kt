@@ -12,10 +12,7 @@ import cz.maio.letitrain.component.*
 import cz.maio.letitrain.component.ImageComponent.Companion.onImageAdd
 import cz.maio.letitrain.component.ImageComponent.Companion.onImageRemove
 import cz.maio.letitrain.input.PlayerInputProcessor
-import cz.maio.letitrain.system.DropletSpawningSystem
-import cz.maio.letitrain.system.MovementSystem
-import cz.maio.letitrain.system.PlayerMovementSystem
-import cz.maio.letitrain.system.RenderingSystem
+import cz.maio.letitrain.system.*
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.disposeSafely
@@ -51,6 +48,7 @@ class GameScreen : KtxScreen {
             add(PlayerMovementSystem())
             add(MovementSystem())
             add(DropletSpawningSystem())
+            add(DropletCollisionSystem())
             add(RenderingSystem())
         }
     }
