@@ -2,26 +2,21 @@ package cz.maio.letitrain.input
 
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.InputProcessor
-import com.github.quillraven.fleks.ComponentMapper
 import com.github.quillraven.fleks.World
 import cz.maio.letitrain.component.*
 
 class PlayerInputProcessor(
-    world: World,
-    private val playerCmps: ComponentMapper<PlayerComponent> = world.mapper(),
+    private val world: World,
 ) : InputProcessor {
-    private val player1Entities = world.family(
-        allOf = arrayOf(ImageComponent::class, PlayerComponent::class, Player1Component::class)
-    )
-    private val player2Entities = world.family(
-        allOf = arrayOf(ImageComponent::class, PlayerComponent::class, Player2Component::class)
-    )
+    private val player1Entities = world.family { all(ImageComponent, PlayerComponent, Player1Component) }
+    private val player2Entities = world.family { all(ImageComponent, PlayerComponent, Player2Component) }
+
     private val player1Entity get() = player1Entities.first()
     private val player2Entity get() = player2Entities.first()
 
     override fun keyDown(keycode: Int): Boolean {
-        val player1Cmp = playerCmps[player1Entity]
-        val player2Cmp = playerCmps[player2Entity]
+        val player1Cmp = with(world) { player1Entity[PlayerComponent] }
+        val player2Cmp = with(world) { player2Entity[PlayerComponent] }
 
         when (keycode) {
             Keys.LEFT -> player1Cmp.keysDown += PlayerInput.MoveLeft
@@ -38,8 +33,8 @@ class PlayerInputProcessor(
     }
 
     override fun keyUp(keycode: Int): Boolean {
-        val player1Cmp = playerCmps[player1Entity]
-        val player2Cmp = playerCmps[player2Entity]
+        val player1Cmp = with(world) { player1Entity[PlayerComponent] }
+        val player2Cmp = with(world) { player2Entity[PlayerComponent] }
 
         when (keycode) {
             Keys.LEFT -> player1Cmp.keysDown -= PlayerInput.MoveLeft

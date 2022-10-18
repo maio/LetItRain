@@ -9,7 +9,8 @@ import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.github.quillraven.fleks.world
 import cz.maio.letitrain.component.*
-import cz.maio.letitrain.component.ImageComponent.Companion.ImageComponentListener
+import cz.maio.letitrain.component.ImageComponent.Companion.onImageAdd
+import cz.maio.letitrain.component.ImageComponent.Companion.onImageRemove
 import cz.maio.letitrain.input.PlayerInputProcessor
 import cz.maio.letitrain.system.DropletSpawningSystem
 import cz.maio.letitrain.system.MovementSystem
@@ -42,14 +43,15 @@ class GameScreen : KtxScreen {
         }
 
         components {
-            add<ImageComponentListener>()
+            onAdd(ImageComponent, onImageAdd)
+            onRemove(ImageComponent, onImageRemove)
         }
 
         systems {
-            add<PlayerMovementSystem>()
-            add<MovementSystem>()
-            add<DropletSpawningSystem>()
-            add<RenderingSystem>()
+            add(PlayerMovementSystem())
+            add(MovementSystem())
+            add(DropletSpawningSystem())
+            add(RenderingSystem())
         }
     }
 
@@ -58,10 +60,10 @@ class GameScreen : KtxScreen {
 
         // Spawn player 1
         eWorld.entity {
-            add<Player1Component>()
-            add<PlayerComponent>()
-            add<MoveComponent>()
-            add<ImageComponent> {
+            it += Player1Component()
+            it += PlayerComponent()
+            it += MoveComponent()
+            it += ImageComponent().apply {
                 image = Image(player1Texture).apply {
                     setScaling(Scaling.fit)
                     setSize(1f, 1f)
@@ -72,10 +74,10 @@ class GameScreen : KtxScreen {
 
         // Spawn player 2
         eWorld.entity {
-            add<Player2Component>()
-            add<PlayerComponent>()
-            add<MoveComponent>()
-            add<ImageComponent> {
+            it += Player2Component()
+            it += PlayerComponent()
+            it += MoveComponent()
+            it += ImageComponent().apply {
                 image = Image(player2Texture).apply {
                     setScaling(Scaling.fit)
                     setSize(1f, 1f)

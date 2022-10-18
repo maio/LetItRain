@@ -32,8 +32,9 @@ class DropletSpawningSystem : IntervalSystem(interval = Fixed(1f)) {
         val height = 9f // TODO: stage.height
 
         world.entity {
-            add<DropletComponent>()
-            add<ImageComponent> {
+            it += DropletComponent()
+
+            it += ImageComponent().apply {
                 image = Image(dropletTexture).apply {
                     setScaling(Scaling.fit)
                     setSize(0.5f, 0.5f)
@@ -44,7 +45,7 @@ class DropletSpawningSystem : IntervalSystem(interval = Fixed(1f)) {
             }
             val defaultSpeed = -2f
 
-            add<MoveComponent> {
+            it += MoveComponent().apply {
                 dy = (Random.nextFloat() * defaultSpeed * 0.2f) + defaultSpeed
             }
         }
